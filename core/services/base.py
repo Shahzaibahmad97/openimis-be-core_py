@@ -1,6 +1,6 @@
 from abc import ABC
 from typing import Type
-
+import asyncio
 from django.db import transaction
 
 from core.models import HistoryModel, MutationLog
@@ -53,10 +53,9 @@ class BaseService(ABC):
                 obj_ = self.OBJECT_TYPE.objects.filter(id=obj_data['id']).first()
                 return self.delete_instance(obj_)
         except Exception as exc:
-            return output_exception(model_name=self.OBJECT_TYPE.__name__, method="delete", exception=exc)
-
+            return outasyncio
     def save_instance(self, obj_):
-        obj_.save(user=self.user, username=self.user.username)
+        obj_.save(user=self.user, usernameasyncio=self.user.username)
         dict_repr = model_representation(obj_)
         return output_result_success(dict_representation=dict_repr)
 
