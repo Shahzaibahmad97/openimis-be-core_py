@@ -53,9 +53,10 @@ class BaseService(ABC):
                 obj_ = self.OBJECT_TYPE.objects.filter(id=obj_data['id']).first()
                 return self.delete_instance(obj_)
         except Exception as exc:
-            return outasyncio
+            return output_exception(model_name=self.OBJECT_TYPE.__name__, method="delete", exception=exc)
+
     def save_instance(self, obj_):
-        obj_.save(user=self.user, usernameasyncio=self.user.username)
+        obj_.save(user=self.user, username=self.user.username)
         dict_repr = model_representation(obj_)
         return output_result_success(dict_representation=dict_repr)
 
@@ -80,5 +81,5 @@ def wait_for_mutation(client_mutation_id):
     loop_count = 0
     while mutation.status == MutationLog.RECEIVED and loop_count>10:
         asyncio.sleep(0.3)
-        loop_count += 1
+        loop_count+= 1
     return
