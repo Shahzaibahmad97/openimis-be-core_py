@@ -79,7 +79,7 @@ def wait_for_mutation(client_mutation_id):
     if not mutation:
         return
     loop_count = 0
-    while mutation.status == MutationLog.RECEIVED and loop_count>10:
+    while mutation.status == MutationLog.RECEIVED and loop_count<10:
         asyncio.sleep(0.3)
         loop_count+= 1
     return
